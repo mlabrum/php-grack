@@ -1,0 +1,19 @@
+{
+    "name": "mlabrum/php-grack",
+    "description": "Implements the git smart http protocol in PHP based on the ruby library grack",
+    "authors": [
+        {
+            "name": "Matt Labrum",
+            "email": "matt@labrum.me"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+	"silex/silex": "1.0.*@dev",
+	"symfony/process": "2.3.*@dev",
+	"symfony/yaml": "2.1.*@dev"
+    },
+     "autoload": {
+        "psr-0": {"mlabrum": "lib/"}
+    }
+}
