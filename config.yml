@@ -1,0 +1,6 @@
+Core:
+  git-path:     "\"C:/Program Files (x86)/Git/libexec/git-core/git.exe\""
+   
+Repositories:
+  test.git: 
+   path: C:\tmp\git
