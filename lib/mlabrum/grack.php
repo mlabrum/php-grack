@@ -45,6 +45,9 @@ class Grack{
 		$response->headers->set('Content-Type', sprintf('application/x-git-%s-result', $service_name));
 		$response->headers->set("Connection", "Close");
 		
+		$old_path = getcwd();
+		chdir($config['path']);
+		
 		$cmd = $this->git_command($service_name . " --stateless-rpc " . $config['path'], $config)->getCommandLine();
 		
 		// Symfony is freezing so implement the process ourselfs
@@ -55,7 +58,14 @@ class Grack{
 			2 => array("pipe", "w") // stderr is a file to write to
 		 );
 		
-		$process = proc_open($cmd, $descriptorspec, $pipes, $config['path'], $_ENV);
+		// Set the min environment variables
+		$env = Array(
+			"PATH"	=> getenv('PATH'),
+			"TMP"	=> getenv("temp"),
+			"PWD"	=> getcwd(),
+		);
+		
+		$process = proc_open($cmd, $descriptorspec, $pipes, $config['path'], $env);
 		
 		if(is_resource($process)){
 			fwrite($pipes[0], $request->getContent());
@@ -67,11 +77,9 @@ class Grack{
 		
 		proc_close($process);
 		
-		return $response;
-	}
-	
-	public function get_text_file(){
+		chdir($old_path);
 		
+		return $response;
 	}
 	
 	/**
