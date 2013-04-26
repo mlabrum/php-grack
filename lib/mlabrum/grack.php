@@ -62,7 +62,7 @@ class Grack{
 			$response->setContent(stream_get_contents($pipes[1]));
 			fclose($pipes[1]);
 		}else{
-			throw new Exception("Unable to open process");
+			throw new \Exception("Unable to open process");
 		}
 		
 		proc_close($process);
